@@ -1,0 +1,151 @@
+#! /bin/bash
+# chkconfig: 2345 55 25
+# Description: Startup script for kcptun on Debian. Place in /etc/init.d and
+# run 'update-rc.d -f kcptun defaults', or use the appropriate command on your
+# distro. For CentOS/Redhat run: 'chkconfig --add kcptun'
+#=======================================================
+#   System Required:  CentOS/Debian/Ubuntu (32bit/64bit)
+#   Description:  Manager for kcptun
+#   Intro:  https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
+#=======================================================
+### BEGIN INIT INFO
+# Provides:          kcptun
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the kcptun
+# Description:       starts kcptun using start-stop
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+ProgramName="kcptun"
+ProgramPath="/usr/local/kcptun"
+NAME=kcptun
+BIN=${ProgramPath}/${NAME}
+CONFIGFILE=${ProgramPath}/config.json
+LOGFILE=/var/log/${NAME}.log
+SCRIPTNAME=/etc/init.d/${NAME}
+PID_DIR=/var/run
+PID_FILE=${PID_DIR}/${ProgramName}.pid
+version="2.0"
+RET_VAL=0
+
+[ -x ${BIN} ] || exit 0
+if [ ! -r ${CONFIGFILE} ]; then
+    echo "config file ${CONFIGFILE} not found"
+    exit 1
+fi
+fun_clangcn()
+{
+    echo
+    echo "+----------------------------------------------------------------+"
+    echo "|                        Manager for kcptun                      |"
+    echo "+----------------------------------------------------------------+"
+    echo "| Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues |"
+    echo "+----------------------------------------------------------------+"
+    echo
+}
+fun_check_run(){
+    PID=`ps -ef | grep -v grep | grep -i "${BIN}" | awk '{print $2}'`
+    if [ ! -z $PID ]; then
+        return 0
+    else
+        rm -f ${PID_FILE}
+        return 1
+    fi
+}
+fun_start()
+{
+    log_flag="$1"
+    if [[ "${arg1}" =~ ^[Ss][Tt][Aa][Rr][Tt]$ ]]; then
+      fun_clangcn
+    fi
+    if [ ! -d ${PID_DIR} ]; then
+        mkdir -p ${PID_DIR} || echo "failed creating PID directory ${PID_DIR}"; exit 1
+    fi
+    if fun_check_run; then
+        echo "${ProgramName} (pid $PID) already running."
+        return 0
+    fi
+    if [[ "${log_flag}" =~ ^[Ll][Oo][Gg]$ ]]; then
+        strLog="${LOGFILE}"
+    else
+        strLog="/dev/null"
+    fi
+    echo -n "Starting ${ProgramName}..."
+    ${BIN} -c ${CONFIGFILE} > ${strLog} 2>&1 &
+    sleep 0.3
+    if ! fun_check_run; then
+        echo "start failed"
+        return 1
+    fi
+    echo " done"
+    ${BIN} -v
+    echo "${ProgramName} (pid $PID)is running."
+    if [[ "${log_flag}" =~ ^[Ll][Oo][Gg]$ ]]; then
+        echo "read ${LOGFILE} for log" 
+    fi
+    return 0
+}
+
+fun_stop(){
+    if [[ "${arg1}" =~ ^[Ss][Tt][Oo][Pp]$ ]] || [[ "${arg1}" =~ ^[Rr][Ee][Ss][Tt][Aa][Rr][Tt]$ ]]; then
+      fun_clangcn
+    fi
+    if fun_check_run; then
+        echo -n "Stoping ${ProgramName} (pid $PID)... "
+        kill $PID
+        if [ "$?" != 0 ] ; then
+            echo " failed"
+            exit 1
+        else
+            echo " done"
+            rm -f $PID_FILE
+        fi
+    else
+        echo "${ProgramName} is not running."
+    fi
+}
+fun_restart(){
+    local restart_log_flag="$1"
+    fun_stop
+    if [[ "${restart_log_flag}" =~ ^[Ll][Oo][Gg]$ ]]; then
+        fun_start log
+    else
+        fun_start
+    fi
+}
+fun_status(){
+    PID=`ps -ef | grep -v grep | grep -i "${BIN}" | awk '{print $2}'`
+    if [ ! -z $PID ]; then
+        echo "${ProgramName} (pid $PID) is running..."
+    else
+        echo "${ProgramName} is stopped"
+        exit 0
+    fi
+}
+fun_config(){
+    vi ${CONFIGFILE}
+}
+fun_version(){
+    ${BIN} -v
+}
+
+arg1=$1
+arg2=$2
+[  -z ${arg1} ]
+case "${arg1}" in
+    start|stop|restart|status|config)
+        fun_${arg1} ${arg2}
+    ;;
+    [vV][eE][rR][sS][iI][oO][nN]|-[vV][eE][rR][sS][iI][oO][nN]|--[vV][eE][rR][sS][iI][oO][nN]|-[vV]|--[vV])
+        fun_version
+    ;;
+    *)
+        fun_clangcn
+        echo "Usage: $SCRIPTNAME {start|stop|restart|status|config|version}"
+        RET_VAL=1
+    ;;
+esac
+exit $RET_VAL

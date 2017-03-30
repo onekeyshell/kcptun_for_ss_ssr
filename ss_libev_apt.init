@@ -1,0 +1,120 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          Shadowsocks-libev
+# Required-Start:    $network $local_fs $remote_fs
+# Required-Stop:     $network $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Fast tunnel proxy that helps you bypass firewalls
+# Description:       Start or stop the Shadowsocks-libev server
+### END INIT INFO
+
+# Intro:  https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
+
+if [ -f /usr/local/bin/ss-server ]; then
+    DAEMON=/usr/local/bin/ss-server
+elif [ -f /usr/bin/ss-server ]; then
+    DAEMON=/usr/bin/ss-server
+fi
+NAME=Shadowsocks-libev
+CONF=/etc/shadowsocks-libev/config.json
+PID_DIR=/var/run
+PID_FILE=$PID_DIR/shadowsocks-libev.pid
+version="2.0"
+RET_VAL=0
+
+[ -x $DAEMON ] || exit 0
+
+if [ ! -f $CONF ]; then
+    echo "$NAME config file $CONF not found"
+    exit 1
+fi
+
+if [ ! -d $PID_DIR ]; then
+    mkdir -p $PID_DIR
+    if [ $? -ne 0 ]; then
+        echo "Creating PID directory $PID_DIR failed"
+        exit 1
+    fi
+fi
+
+check_running() {
+    if [ -r $PID_FILE ]; then
+        read PID < $PID_FILE
+        if [ -d "/proc/$PID" ]; then
+            return 0
+        else
+            rm -f $PID_FILE
+            return 1
+        fi
+    else
+        return 2
+    fi
+}
+
+do_status() {
+    check_running
+    case $? in
+        0)
+        echo "$NAME (pid $PID) is running..."
+        ;;
+        1|2)
+        echo "$NAME is stopped"
+        RET_VAL=1
+        ;;
+    esac
+}
+
+do_start() {
+    if check_running; then
+        echo "$NAME (pid $PID) is already running..."
+        return 0
+    fi
+    ${DAEMON} -c $CONF -u -f $PID_FILE
+    if check_running; then
+        echo "Starting $NAME success"
+    else
+        echo "Starting $NAME failed"
+        RET_VAL=1
+    fi
+}
+
+do_stop() {
+    if check_running; then
+        kill -9 $PID
+        rm -f $PID_FILE
+        echo "Stopping $NAME success"
+    else
+        echo "$NAME is stopped"
+        RET_VAL=1
+    fi
+}
+
+do_restart() {
+    do_stop
+    do_start
+}
+
+do_config() {
+    vi $CONF
+}
+
+do_version(){
+    ${DAEMON} -h | grep -i "shadowsocks-libev"
+}
+
+case "$1" in
+    start|stop|restart|status|config)
+    do_$1
+    ;;
+    [vV][eE][rR][sS][iI][oO][nN]|-[vV][eE][rR][sS][iI][oO][nN]|--[vV][eE][rR][sS][iI][oO][nN]|-[vV]|--[vV])
+        do_version
+    ;;
+    *)
+    echo "Usage: $0 { start | stop | restart | status | config | version }"
+    RET_VAL=1
+    ;;
+esac
+
+exit $RET_VAL
