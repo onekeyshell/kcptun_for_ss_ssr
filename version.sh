@@ -7,7 +7,7 @@ export LIBSODIUM_LINK="https://download.libsodium.org/libsodium/releases/libsodi
 export MBEDTLS_VER=2.4.0
 export MBEDTLS_LINK="https://tls.mbed.org/download/mbedtls-${MBEDTLS_VER}-gpl.tgz"
 # SS_LIBEV
-export SS_LIBEV_VER=3.0.5
+export SS_LIBEV_VER=3.0.6
 export SS_LIBEV_LINK="https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_LIBEV_VER}/shadowsocks-libev-${SS_LIBEV_VER}.tar.gz"
 export SS_LIBEV_YUM_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ss_libev.init"
 export SS_LIBEV_APT_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ss_libev_apt.init"
