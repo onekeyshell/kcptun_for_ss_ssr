@@ -12,7 +12,7 @@ export SS_LIBEV_LINK="https://github.com/shadowsocks/shadowsocks-libev/releases/
 export SS_LIBEV_YUM_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ss_libev.init"
 export SS_LIBEV_APT_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ss_libev_apt.init"
 # SSR
-export SSR_VER=3.1.1
+export SSR_VER=3.3.2
 export SSR_LINK="https://github.com/shadowsocksr/shadowsocksr/archive/manyuser.zip"
 export SSR_YUM_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssr.init"
 export SSR_APT_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssr_apt.init"
