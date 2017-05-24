@@ -6,7 +6,7 @@ export PATH
 #   Description:  A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 #   Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
 #===============================================================================================
-version="2.0.0"
+version="2.0.1"
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install SS/SSR/KCPTUN"
     exit 1
@@ -1043,13 +1043,9 @@ pre_install_kcptun_for_ss_ssr(){
         echo "  6: chacha20"
         echo "  7: chacha20-ietf"
         echo "  8: salsa20"
-        echo "  9: bf-cfb"
-        echo " 10: camellia-128-cfb"
-        echo " 11: camellia-192-cfb"
-        echo " 12: camellia-256-cfb"
-        echo " 13: aes-128-ctr"
-        echo " 14: aes-192-ctr"
-        echo " 15: aes-256-ctr"
+        echo "  9: aes-128-ctr"
+        echo " 10: aes-192-ctr"
+        echo " 11: aes-256-ctr"
         read -p "Enter your choice (1, 2, 3, ... or exit. default [${def_ssr_method}]): " set_ssr_method
         case "${set_ssr_method}" in
             1|[Aa][Ee][Ss]-128-[Cc][Ff][Bb])
@@ -1076,25 +1072,13 @@ pre_install_kcptun_for_ss_ssr(){
             8|[Ss][Aa][Ll][As][Aa]20)
                 set_ssr_method="salsa20"
                 ;;
-            9|[Bb][Ff]-[Cc][Ff][Bb])
-                set_ssr_method="bf-cfb"
-                ;;
-            10|[Cc][Aa][Mm][Ee][Ll][Ll][Ii][Aa]-128-[Cc][Ff][Bb])
-                set_ssr_method="camellia-128-cfb"
-                ;;
-            11|[Cc][Aa][Mm][Ee][Ll][Ll][Ii][Aa]-192-[Cc][Ff][Bb])
-                set_ssr_method="camellia-192-cfb"
-                ;;
-            12|[Cc][Aa][Mm][Ee][Ll][Ll][Ii][Aa]-256-[Cc][Ff][Bb])
-                set_ssr_method="camellia-256-cfb"
-                ;;
-            13|[Aa][Ee][Ss]-128-[Cc][Tt][Rr])
+            9|[Aa][Ee][Ss]-128-[Cc][Tt][Rr])
                 set_ssr_method="aes-128-ctr"
                 ;;
-            14|[Aa][Ee][Ss]-192-[Cc][Tt][Rr])
+            10|[Aa][Ee][Ss]-192-[Cc][Tt][Rr])
                 set_ssr_method="aes-192-ctr"
                 ;;
-            15|[Aa][Ee][Ss]-256-[Cc][Tt][Rr])
+            11|[Aa][Ee][Ss]-256-[Cc][Tt][Rr])
                 set_ssr_method="aes-256-ctr"
                 ;;
             [eE][xX][iI][tT])
@@ -1112,38 +1096,30 @@ pre_install_kcptun_for_ss_ssr(){
         def_ssr_protocol="origin"
         echo -e "Please select Protocol plugin for shadowsocksR"
         echo "  1: origin (default)"
-        echo "  2: verify_sha1_compatible"
-        echo "  3: verify_sha1"
-        echo "  4: auth_sha1"
-        echo "  5: auth_sha1_v2"
-        echo "  6: auth_sha1_v4"
-        echo "  7: auth_aes128_md5"
-        echo "  8: auth_aes128_sha1"
+        echo "  2: auth_sha1_v4"
+        echo "  3: auth_sha1_v4_compatible"
+        echo "  4: auth_aes128_md5"
+        echo "  5: auth_aes128_sha1"
+        echo "  6: auth_chain_a"
         read -p "Enter your choice (1, 2, 3, ... or exit. default [${def_ssr_protocol}]): " set_ssr_protocol
         case "${set_ssr_protocol}" in
             1|[Oo][Rr][Ii][Gg][Ii][Nn])
                 set_ssr_protocol="origin"
                 ;;
-            2|[Vv][Ee][Rr][Ii][Ff][Yy]_[Ss][Hh][Aa]1_[Cc][Oo][Mm][Pp][Aa][Tt][Ii][Bb][Ll][Ee])
-                set_ssr_protocol="verify_sha1_compatible"
-                ;;
-            3|[Vv][Ee][Rr][Ii][Ff][Yy]_[Ss][Hh][Aa]1)
-                set_ssr_protocol="verify_sha1"
-                ;;
-            4|[Aa][Uu][Tt][Hh]_[Ss][Hh][Aa]1)
-                set_ssr_protocol="auth_sha1"
-                ;;
-            5|[Aa][Uu][Tt][Hh]_[Ss][Hh][Aa]1_[Vv]2)
-                set_ssr_protocol="auth_sha1_v2"
-                ;;
-            6|[Aa][Uu][Tt][Hh]_[Ss][Hh][Aa]1_[Vv]4)
+            2|[Aa][Uu][Tt][Hh]_[Ss][Hh][Aa]1_[Vv]4)
                 set_ssr_protocol="auth_sha1_v4"
                 ;;
-            7|[Aa][Uu][Tt][Hh]_[Aa][Ee][Ss]128_[Mm][Dd]5)
+            3|[Aa][Uu][Tt][Hh]_[Ss][Hh][Aa]1_[Vv]4_[Cc][Oo][Mm][Pp][Aa][Tt][Ii][Bb][Ll][Ee])
+                set_ssr_protocol="auth_sha1_v4_compatible"
+                ;;
+            4|[Aa][Uu][Tt][Hh]_[Aa][Ee][Ss]128_[Mm][Dd]5)
                 set_ssr_protocol="auth_aes128_md5"
                 ;;
-            8|[Aa][Uu][Tt][Hh]_[Aa][Ee][Ss]128_[Ss][Hh][Aa]5)
+            5|[Aa][Uu][Tt][Hh]_[Aa][Ee][Ss]128_[Ss][Hh][Aa]5)
                 set_ssr_protocol="auth_aes128_sha1"
+                ;;
+            6|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Aa])
+                set_ssr_protocol="auth_chain_a"
                 ;;
             [eE][xX][iI][tT])
                 exit 1
