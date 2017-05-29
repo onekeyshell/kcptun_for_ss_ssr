@@ -6,7 +6,7 @@ export PATH
 #   Description:  A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 #   Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
 #===============================================================================================
-version="2.0.1"
+version="2.0.2"
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install SS/SSR/KCPTUN"
     exit 1
@@ -1035,6 +1035,7 @@ pre_install_kcptun_for_ss_ssr(){
         #mujson_mgr.py
         def_ssr_method="aes-256-cfb"
         echo -e "Please select encryption method for shadowsocksR"
+        echo "  0: none"
         echo "  1: aes-128-cfb"
         echo "  2: aes-192-cfb"
         echo "  3: aes-256-cfb (default)"
@@ -1046,8 +1047,11 @@ pre_install_kcptun_for_ss_ssr(){
         echo "  9: aes-128-ctr"
         echo " 10: aes-192-ctr"
         echo " 11: aes-256-ctr"
-        read -p "Enter your choice (1, 2, 3, ... or exit. default [${def_ssr_method}]): " set_ssr_method
+        read -p "Enter your choice (0, 1, 2, 3, ... or exit. default [${def_ssr_method}]): " set_ssr_method
         case "${set_ssr_method}" in
+            0|[Nn][Oo][Nn][Ee])
+                set_ssr_method="none"
+                ;;
             1|[Aa][Ee][Ss]-128-[Cc][Ff][Bb])
                 set_ssr_method="aes-128-cfb"
                 ;;
