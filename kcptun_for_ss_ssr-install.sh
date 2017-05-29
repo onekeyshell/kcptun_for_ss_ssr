@@ -1258,6 +1258,7 @@ pre_install_kcptun_for_ss_ssr(){
         echo "  9: tea"
         echo " 10: xtea"
         echo " 11: xor"
+        echo " 12: none"
         read -p "Enter your choice (1, 2, 3, ... or exit. default [${def_kcptun_method}]): " set_kcptun_method
         case "${set_kcptun_method}" in
             1|[aA][eE][sS])
@@ -1292,6 +1293,8 @@ pre_install_kcptun_for_ss_ssr(){
                 ;;
             11|[xX][oO][rR])
                 set_kcptun_method="xor"
+            12|[Nn][Oo][Nn][Ee])
+                set_kcptun_method="none"
                 ;;
             [eE][xX][iI][tT])
                 exit 1
