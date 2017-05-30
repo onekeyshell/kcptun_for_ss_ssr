@@ -6,7 +6,7 @@ export PATH
 #   Description:  A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 #   Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
 #===============================================================================================
-version="2.0.2"
+version="2.0.3"
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install SS/SSR/KCPTUN"
     exit 1
@@ -1293,6 +1293,7 @@ pre_install_kcptun_for_ss_ssr(){
                 ;;
             11|[xX][oO][rR])
                 set_kcptun_method="xor"
+                ;;
             12|[Nn][Oo][Nn][Ee])
                 set_kcptun_method="none"
                 ;;
