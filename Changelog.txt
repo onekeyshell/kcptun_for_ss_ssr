@@ -1,5 +1,7 @@
 KCPTUN for SS/SSR Changelog
 ===========================================
+2.0.3 [2017-05-30 12:15]
+    - Fix       修复脚本错误
 2.0.2 [2017-05-29 20:45]
     - Update    添加SSR的none加密方式
     - Update    添加KCPTUN的none加密方式
