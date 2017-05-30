@@ -1293,7 +1293,7 @@ pre_install_kcptun_for_ss_ssr(){
                 ;;
             11|[xX][oO][rR])
                 set_kcptun_method="xor"
-                ；；
+                ;;
             12|[Nn][Oo][Nn][Ee])
                 set_kcptun_method="none"
                 ;;
