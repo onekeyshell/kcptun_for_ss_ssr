@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # LIBSODIUM
-export LIBSODIUM_VER=1.0.11
-export LIBSODIUM_LINK="https://download.libsodium.org/libsodium/releases/libsodium-${LIBSODIUM_VER}.tar.gz"
+export LIBSODIUM_VER=1.0.12
+#export LIBSODIUM_LINK="https://download.libsodium.org/libsodium/releases/libsodium-${LIBSODIUM_VER}.tar.gz"
+export LIBSODIUM_LINK="https://github.com/jedisct1/libsodium/releases/download/${LIBSODIUM_VER}/libsodium-${LIBSODIUM_VER}.tar.gz"
 # MBEDTLS
 export MBEDTLS_VER=2.4.0
 export MBEDTLS_LINK="https://tls.mbed.org/download/mbedtls-${MBEDTLS_VER}-gpl.tgz"
