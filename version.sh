@@ -18,6 +18,12 @@ export SSR_VER=$(wget --no-check-certificate -qO- https://raw.githubusercontent.
 export SSR_LINK="https://github.com/onekeyshell/shadowsocksr/archive/manyuser.zip"
 export SSR_YUM_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssr.init"
 export SSR_APT_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssr_apt.init"
+# SSRR
+#export SSRR_VER=3.2.1
+export SSRR_VER=$(wget --no-check-certificate -qO- https://raw.githubusercontent.com/onekeyshell/shadowsocksr/akkariiin/master/shadowsocks/version.py | grep return | cut -d\' -f2 | awk '{print $2}')
+export SSRR_LINK="https://github.com/onekeyshell/shadowsocksr/archive/akkariiin/master.zip"
+export SSRR_YUM_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssrr.init"
+export SSRR_APT_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssrr_apt.init"
 # KCPTUN
 export KCPTUN_VER=20170904
 export KCPTUN_AMD64_LINK="https://github.com/xtaci/kcptun/releases/download/v${KCPTUN_VER}/kcptun-linux-amd64-${KCPTUN_VER}.tar.gz"
