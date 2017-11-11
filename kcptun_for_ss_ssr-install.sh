@@ -6,7 +6,7 @@ export PATH
 #   Description:  A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 #   Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
 #===============================================================================================
-version="2.0.4"
+version="2.0.5"
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install SS/SSR/KCPTUN"
     exit 1
@@ -584,15 +584,11 @@ EOF
     "local_address":"127.0.0.1",
     "local_port":${ssrr_local_port},
     "port_password":{
-        "${set_ssrr_port}":{"protocol":"${set_ssrr_protocol}", "password":"${set_ssrr_pwd}", "obfs":"${set_ssrr_obfs}", "obfs_param":""}
+        "${set_ssrr_port}":{"protocol":"${set_ssrr_protocol}", "protocol_param":"", "password":"${set_ssrr_pwd}", "obfs":"${set_ssrr_obfs}", "obfs_param":""}
     },
     "timeout":300,
     "method":"${set_ssrr_method}",
-    "protocol": "${set_ssrr_protocol}",
-    "protocol_param": "", 
-    "obfs": "${set_ssrr_obfs}",
-    "obfs_param": "", 
-    "redirect": "", 
+    "redirect": "",
     "dns_ipv6": false,
     "fast_open": false,
     "workers": 1
