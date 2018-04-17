@@ -970,7 +970,7 @@ show_kcptun_for_ss_ssr(){
         echo "----------------------------------------------------------"
         echo -e "${COLOR_PINK}Kcptun config for SS/SSR/Phone:${COLOR_END}"
         echo -e "KCP Port      : ${COLOR_GREEN}${set_kcptun_port}${COLOR_END}"
-        echo -e "KCP parameter : ${COLOR_GREEN}--crypt ${set_kcptun_method} --key ${set_kcptun_pwd} --mtu ${set_kcptun_mtu} --sndwnd 128 --rcvwnd 1024 --mode ${set_kcptun_mode}${show_kcptun_nocomp}${COLOR_END}"
+        echo -e "KCP parameter : ${COLOR_GREEN}--crypt ${set_kcptun_method} --key ${set_kcptun_pwd} --mtu ${set_kcptun_mtu} --sndwnd 1024 --rcvwnd 1024 --mode ${set_kcptun_mode}${show_kcptun_nocomp}${COLOR_END}"
         echo "----------------------------------------------------------"
         echo -e "Kcptun status manage: ${COLOR_PINK}/etc/init.d/kcptun${COLOR_END} {${COLOR_GREEN}start|stop|restart|status|config|version${COLOR_END}}"
         echo "=========================================================="
