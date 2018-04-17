@@ -6,7 +6,7 @@ export PATH
 #   Description:  A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 #   Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
 #===============================================================================================
-version="2.0.5"
+version="2.0.6"
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install SS/SSR/KCPTUN"
     exit 1
@@ -372,7 +372,7 @@ get_install_version(){
         echo -e "${COLOR_RED}Failed to download version.sh${COLOR_END}"
     fi
     if [ -s ${cur_dir}/.version.sh ]; then
-        [ -x ${cur_dir}/.version.sh ] && chmod +x ${cur_dir}/.version.sh 
+        [ -x ${cur_dir}/.version.sh ] && chmod +x ${cur_dir}/.version.sh
         . ${cur_dir}/.version.sh
     fi
     if [ -z ${LIBSODIUM_VER} ] || [ -z ${MBEDTLS_VER} ] || [ -z ${SS_LIBEV_VER} ] || [ -z ${SSR_VER} ] || [ -z ${SSRR_VER} ] || [ -z ${KCPTUN_VER} ]; then
@@ -381,7 +381,7 @@ get_install_version(){
     fi
 }
 get_latest_version(){
-    rm -f ${cur_dir}/.api_*.txt 
+    rm -f ${cur_dir}/.api_*.txt
     if [[ "${ss_libev_installed_flag}" == "false" && "${clang_action}" =~ ^[Ii]|[Ii][Nn]|[Ii][Nn][Ss][Tt][Aa][Ll][Ll]|-[Ii]|--[Ii]$ ]] || [[ "${ss_libev_installed_flag}" == "true" && "${clang_action}" =~ ^[Uu]|[Uu][Pp][Dd][Aa][Tt][Ee]|-[Uu]|--[Uu]|[Uu][Pp]|-[Uu][Pp]|--[Uu][Pp]$ ]]; then
         echo -e "Loading SS-libev version, please wait..."
         if check_sys packageManager yum; then
@@ -617,7 +617,7 @@ install_kcptun_for_ss_ssr(){
     #if [[ "${ss_libev_installed_flag}" == "false" && "${clang_action}" =~ ^[Ii]|[Ii][Nn]|[Ii][Nn][Ss][Tt][Aa][Ll][Ll]|-[Ii]|--[Ii]$ ]] || [[ "${ssr_installed_flag}" == "false" && "${clang_action}" =~ ^[Ii]|[Ii][Nn]|[Ii][Nn][Ss][Tt][Aa][Ll][Ll]|-[Ii]|--[Ii]$ ]] || [[ "${kcptun_installed_flag}" == "false" && "${clang_action}" =~ ^[Ii]|[Ii][Nn]|[Ii][Nn][Ss][Tt][Aa][Ll][Ll]|-[Ii]|--[Ii]$ ]]; then
         if check_sys packageManager yum; then
             yum install -y epel-release
-            yum install -y unzip openssl-devel gcc swig autoconf libtool libevent vim automake make psmisc curl curl-devel zlib-devel perl perl-devel cpio expat-devel gettext-devel xmlto asciidoc pcre pcre-devel python python-devel python-setuptools udns-devel libev-devel mbedtls-devel
+            yum install -y unzip openssl-devel gcc swig autoconf libtool libevent vim automake make psmisc curl curl-devel zlib-devel perl perl-devel cpio expat-devel gettext-devel xmlto asciidoc pcre pcre-devel python python-devel python-setuptools udns-devel libev-devel c-ares-devel mbedtls-devel
             if [ $? -gt 1 ]; then
                 echo
                 echo -e "${COLOR_RED}Install support packs failed!${COLOR_END}"
@@ -630,7 +630,7 @@ install_kcptun_for_ss_ssr(){
                     echo "deb http://http.us.debian.org/debian jessie main" >> /etc/apt/sources.list
                 fi
             fi
-            apt-get -y update && apt-get -y install --no-install-recommends gettext curl wget vim unzip psmisc gcc swig autoconf automake make perl cpio build-essential libtool openssl libssl-dev zlib1g-dev xmlto asciidoc libpcre3 libpcre3-dev python python-dev python-pip python-m2crypto libev-dev libudns-dev
+            apt-get -y update && apt-get -y install --no-install-recommends gettext curl wget vim unzip psmisc gcc swig autoconf automake make perl cpio build-essential libtool openssl libssl-dev zlib1g-dev xmlto asciidoc libpcre3 libpcre3-dev python python-dev python-pip python-m2crypto libev-dev libc-ares-dev libudns-dev
             if [ $? -gt 1 ]; then
                 echo
                 echo -e "${COLOR_RED}Install support packs failed!${COLOR_END}"
