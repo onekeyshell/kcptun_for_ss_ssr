@@ -6,7 +6,7 @@ export PATH
 #   Description:  A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 #   Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
 #===============================================================================================
-version="2.0.6"
+version="2.0.7"
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install SS/SSR/KCPTUN"
     exit 1
@@ -326,7 +326,7 @@ Dispaly_Selection(){
 # Install cleanup
 install_cleanup(){
     cd ${cur_dir}
-    rm -rf .version.sh ${shadowsocks_libev_ver} ${shadowsocks_libev_ver}.tar.gz manyuser.zip shadowsocksr-manyuser shadowsocks-manyuser ${kcptun_latest_file} ${libsodium_laster_ver} ${libsodium_laster_ver}.tar.gz ${mbedtls_laster_ver} ${mbedtls_laster_ver}-gpl.tgz shadowsocksr-akkariiin-master ssrr.zip
+    rm -rf .version.sh shadowsocks-libev-* manyuser.zip shadowsocksr-manyuser shadowsocks-manyuser kcptun-linux-* libsodium-* mbedtls-* shadowsocksr-akkariiin-master ssrr.zip
 }
 check_kcptun_for_ss_ssr_installed(){
     ss_libev_installed_flag=""
