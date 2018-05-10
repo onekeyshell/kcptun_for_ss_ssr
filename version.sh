@@ -21,7 +21,7 @@ export SSR_APT_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss
 # SSRR
 #export SSRR_VER=3.2.1
 export SSRR_VER=$(wget --no-check-certificate -qO- https://raw.githubusercontent.com/onekeyshell/shadowsocksr/akkariiin/master/shadowsocks/version.py | grep return | cut -d\' -f2 | awk '{print $2}')
-export SSRR_LINK="https://github.com/onekeyshell/shadowsocksr/archive/akkariiin/master.zip"
+export SSRR_LINK="https://github.com/shadowsocksrr/shadowsocksr/archive/akkariiin/dev.zip"
 export SSRR_YUM_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssrr.init"
 export SSRR_APT_INIT="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/ssrr_apt.init"
 # KCPTUN
