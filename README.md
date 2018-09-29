@@ -49,7 +49,7 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 ------
 ###<a name="Install_command">安装命令
 ```Bash
-    wget --no-check-certificate -O ./kcptun_for_ss_ssr-install.sh https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/kcptun_for_ss_ssr-install.sh
+    wget --no-check-certificate -O ./kcptun_for_ss_ssr-install.sh https://raw.githubusercontent.com/sunsan05/one-key-ssr-kcptun/master/kcptun_for_ss_ssr-install.sh
     chmod 700 ./kcptun_for_ss_ssr-install.sh
     ./kcptun_for_ss_ssr-install.sh install
 ```

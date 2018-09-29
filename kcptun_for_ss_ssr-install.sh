@@ -5,8 +5,9 @@ export PATH
 #   System Required:  CentOS Debian or Ubuntu (32bit/64bit)
 #   Description:  A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 #   Intro: https://github.com/onekeyshell/kcptun_for_ss_ssr/issues
+#   Fork: https://github.com/sunsan05/one-key-ssr-kcptun
 #===============================================================================================
-version="2.0.7"
+version="2.0.8"
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install SS/SSR/KCPTUN"
     exit 1
@@ -35,8 +36,8 @@ shell_update(){
         fi
     fi
 }
-shell_download_link="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/kcptun_for_ss_ssr-install.sh"
-program_version_link="https://raw.githubusercontent.com/onekeyshell/kcptun_for_ss_ssr/master/version.sh"
+shell_download_link="https://raw.githubusercontent.com/sunsan05/one-key-ssr-kcptun/master/kcptun_for_ss_ssr-install.sh"
+program_version_link="https://raw.githubusercontent.com/sunsan05/one-key-ssr-kcptun/master/version.sh"
 ss_libev_config="/etc/shadowsocks-libev/config.json"
 ssr_config="/usr/local/shadowsocksR/shadowsocksR.json"
 ssrr_config="/usr/local/shadowsocksrr/user-config.json"
@@ -570,7 +571,7 @@ EOF
     "obfs_param":"",
     "redirect":"",
     "dns_ipv6":false,
-    "fast_open":false,
+    "fast_open":true,
     "workers":1
 }
 EOF
@@ -586,11 +587,11 @@ EOF
     "port_password":{
         "${set_ssrr_port}":{"protocol":"${set_ssrr_protocol}", "protocol_param":"", "password":"${set_ssrr_pwd}", "obfs":"${set_ssrr_obfs}", "obfs_param":""}
     },
-    "timeout":300,
+    "timeout":120,
     "method":"${set_ssrr_method}",
     "redirect": "",
     "dns_ipv6": false,
-    "fast_open": false,
+    "fast_open": true,
     "workers": 1
 }
 EOF
@@ -1026,15 +1027,15 @@ pre_install_kcptun_for_ss_ssr(){
             fi
         done
         ss_libev_local_port="1086"
-        def_ss_libev_method="aes-256-cfb"
+        def_ss_libev_method="aes-256-gcm"
         echo -e "Please select method for shadowsocks-libev"
         echo "  1: rc4-md5"
         echo "  2: aes-128-gcm"
         echo "  3: aes-192-gcm"
-        echo "  4: aes-256-gcm"
+        echo "  4: aes-256-gcm (default)"
         echo "  5: aes-128-cfb"
         echo "  6: aes-192-cfb"
-        echo "  7: aes-256-cfb (default)"
+        echo "  7: aes-256-cfb"
         echo "  8: aes-128-ctr"
         echo "  9: aes-192-ctr"
         echo " 10: aes-256-ctr"
@@ -1139,7 +1140,7 @@ pre_install_kcptun_for_ss_ssr(){
         # Set shadowsocksR port
         while true
         do
-            def_ssr_port="28989"
+            def_ssr_port="2333"
             echo -e "Please input port for shadowsocksR [1-65535]"
             read -p "(Default port: ${def_ssr_port}):" set_ssr_port
             [ -z "$set_ssr_port" ] && set_ssr_port="${def_ssr_port}"
@@ -1161,16 +1162,16 @@ pre_install_kcptun_for_ss_ssr(){
         done
         ssr_local_port="1088"
         #mujson_mgr.py
-        def_ssr_method="aes-256-cfb"
+        def_ssr_method="chacha20-ietf"
         echo -e "Please select encryption method for shadowsocksR"
         echo "  0: none"
         echo "  1: aes-128-cfb"
         echo "  2: aes-192-cfb"
-        echo "  3: aes-256-cfb (default)"
+        echo "  3: aes-256-cfb"
         echo "  4: rc4-md5"
         echo "  5: rc4-md5-6"
         echo "  6: chacha20"
-        echo "  7: chacha20-ietf"
+        echo "  7: chacha20-ietf (default)"
         echo "  8: salsa20"
         echo "  9: aes-128-ctr"
         echo " 10: aes-192-ctr"
@@ -1233,6 +1234,11 @@ pre_install_kcptun_for_ss_ssr(){
         echo "  4: auth_aes128_md5"
         echo "  5: auth_aes128_sha1"
         echo "  6: auth_chain_a"
+        echo "  7: auth_chain_b"
+        echo "  8: auth_chain_c"
+        echo "  9: auth_chain_d"
+        echo "  10: auth_chain_e"
+        echo "  11: auth_chain_f"
         read -p "Enter your choice (1, 2, 3, ... or exit. default [${def_ssr_protocol}]): " set_ssr_protocol
         case "${set_ssr_protocol}" in
             1|[Oo][Rr][Ii][Gg][Ii][Nn])
@@ -1253,6 +1259,22 @@ pre_install_kcptun_for_ss_ssr(){
             6|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Aa])
                 set_ssr_protocol="auth_chain_a"
                 ;;
+            7|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Bb])
+                set_ssr_protocol="auth_chain_b"
+                ;;
+            8|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Cc])
+                set_ssr_protocol="auth_chain_c"
+                ;;
+            9|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Dd])
+                set_ssr_protocol="auth_chain_d"
+                ;;
+            10|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Ee])
+                set_ssr_protocol="auth_chain_e"
+                ;;
+            11|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Ff])
+                set_ssr_protocol="auth_chain_f"
+                ;;
+
             [eE][xX][iI][tT])
                 exit 1
                 ;;
@@ -1326,7 +1348,7 @@ pre_install_kcptun_for_ss_ssr(){
         # Set shadowsocksrr port
         while true
         do
-            def_ssrr_port="48989"
+            def_ssrr_port="23334"
             echo -e "Please input port for shadowsocksrr [1-65535]"
             read -p "(Default port: ${def_ssrr_port}):" set_ssrr_port
             [ -z "$set_ssrr_port" ] && set_ssrr_port="${def_ssrr_port}"
@@ -1348,20 +1370,21 @@ pre_install_kcptun_for_ss_ssr(){
         done
         ssrr_local_port="1089"
         #mujson_mgr.py
-        def_ssrr_method="aes-256-cfb"
+        def_ssrr_method="chacha20-ietf"
         echo -e "Please select encryption method for shadowsocksrr"
         echo "  0: none"
         echo "  1: aes-128-cfb"
         echo "  2: aes-192-cfb"
-        echo "  3: aes-256-cfb (default)"
+        echo "  3: aes-256-cfb"
         echo "  4: rc4-md5"
         echo "  5: rc4-md5-6"
         echo "  6: chacha20"
-        echo "  7: chacha20-ietf"
+        echo "  7: chacha20-ietf (default)"
         echo "  8: salsa20"
         echo "  9: aes-128-ctr"
         echo " 10: aes-192-ctr"
         echo " 11: aes-256-ctr"
+        echo " 12: chacha20-ietf-poly1305"
         read -p "Enter your choice (0, 1, 2, 3, ... or exit. default [${def_ssrr_method}]): " set_ssrr_method
         case "${set_ssrr_method}" in
             0|[Nn][Oo][Nn][Ee])
@@ -1400,6 +1423,9 @@ pre_install_kcptun_for_ss_ssr(){
             11|[Aa][Ee][Ss]-256-[Cc][Tt][Rr])
                 set_ssrr_method="aes-256-ctr"
                 ;;
+            12|[Cc][Hh][Aa][Cc][Hh][Aa]20-[Ii][Ee][Tt][Ff]-[Pp][Oo][Ll][Yy]1305)
+                set_ssrr_method="chacha20-ietf-poly1305"
+                ;;
             [eE][xX][iI][tT])
                 exit 1
                 ;;
@@ -1423,6 +1449,8 @@ pre_install_kcptun_for_ss_ssr(){
         echo "  7: auth_chain_b"
         echo "  8: auth_chain_c"
         echo "  9: auth_chain_d"
+        echo "  10: auth_chain_e"
+        echo "  11: auth_chain_f"
         read -p "Enter your choice (1, 2, 3, ... or exit. default [${def_ssrr_protocol}]): " set_ssrr_protocol
         case "${set_ssrr_protocol}" in
             1|[Oo][Rr][Ii][Gg][Ii][Nn])
@@ -1451,6 +1479,12 @@ pre_install_kcptun_for_ss_ssr(){
                 ;;
             9|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Dd])
                 set_ssrr_protocol="auth_chain_d"
+                ;;
+            10|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Ee])
+                set_ssrr_protocol="auth_chain_e"
+                ;;
+            11|[Aa][Uu][Tt][Hh]_[Cc][Hh][Aa][Ii][Nn]_[Ff])
+                set_ssrr_protocol="auth_chain_f"
                 ;;
             [eE][xX][iI][tT])
                 exit 1
