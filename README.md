@@ -3,7 +3,7 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 ##一键安装KCPTUN for SS/SSR on Linux。  
 脚本是业余爱好，英文属于文盲，写的不好，欢迎您批评指正。
 ******
-##<a name="index"/>目录
+## <a name="index"/>目录
 
 * [致谢](#thanks)
 * [已测试平台](#test)
@@ -19,12 +19,12 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 
 ******
 
-##<a name="thanks"/>致谢
+## <a name="thanks"/>致谢
 
 感谢[秋水逸冰][teddysun_url]，一键安装脚本中很多代码都是从秋水的脚本中借鉴过来的，在此感谢大神们的付出。  
 
 ******
-##<a name="test"/>已测试平台
+## <a name="test"/>已测试平台
 
 |序号|测试系统      | 系统版本
 |:----:|:--------:|:---------
@@ -37,7 +37,7 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 |7|ubuntu         | 12.04 
 
 ******
-##<a name="plan"/>安装前的准备工作
+## <a name="plan"/>安装前的准备工作
 
 命令都是在你的服务器上运行的，  
 首先你要知道如何通过SSH远程登录到你的服务器上 [SSH教程][putty_url]  
@@ -45,7 +45,7 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 最后要会一点点的VI(VIM)编辑器使用方法 [VI/VIM教程][vim_url]
 
 ******
-##<a name="Install"/>安装
+## <a name="Install"/>安装
 ------
 ###<a name="Install_command">安装命令
 ```Bash
@@ -54,9 +54,9 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
     ./kcptun_for_ss_ssr-install.sh install
 ```
 ******
-###<a name="Install_Jiaocheng">安装教程
+### <a name="Install_Jiaocheng">安装教程
 ------
-####<a name="Install_ss_kcp">Shadowsocks-libev + KCPTUN
+#### <a name="Install_ss_kcp">Shadowsocks-libev + KCPTUN
 1. 本教程以`Debian 8`为例，运行脚本时会自动检测脚本是否有更新，如有更新会自动更新，然后需要再次运行脚本继续。
 * 通过SSH登录到你的服务器上后，将[安装命令](#Install_command)一行一行的复制到你的服务器上：  
 ![][01-input-command_img]
@@ -75,7 +75,7 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 ![][06-ss-kcp-setting_img]
 
 ------
-####<a name="Install_ssr_kcp">ShadowsocksR + KCPTUN
+#### <a name="Install_ssr_kcp">ShadowsocksR + KCPTUN
 1. 本教程以`Debian 8`为例，运行脚本时会自动检测脚本是否有更新，如有更新会自动更新，然后需要再次运行脚本继续。
 * 通过SSH登录到你的服务器上后，将[安装命令](#Install_command)一行一行的复制到你的服务器上：  
 ![][01-input-command_img]
@@ -94,7 +94,7 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 ![][06-ssr-kcp-setting_img]
 
 ------
-####<a name="Firewall">防火墙设置示例
+#### <a name="Firewall">防火墙设置示例
 
 centos7（请替换命令里的端口）：  
 ```Bash
@@ -129,13 +129,13 @@ chmod +x /etc/network/if-pre-up.d/iptables
 ```
 
 ******
-##<a name="Update"/>更新
+## <a name="Update"/>更新
 ```Bash
     ./kcptun_for_ss_ssr-install.sh update
 ```
 
 ******
-##<a name="UnInstall"/>卸载
+## <a name="UnInstall"/>卸载
 ```Bash
     ./kcptun_for_ss_ssr-install.sh uninstall
 ```
