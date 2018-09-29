@@ -1,6 +1,6 @@
 A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 ===========
-##一键安装KCPTUN for SS/SSR on Linux。  
+## 一键安装KCPTUN for SS/SSR on Linux。  
 脚本是业余爱好，英文属于文盲，写的不好，欢迎您批评指正。
 ******
 ## <a name="index"/>目录
@@ -47,7 +47,7 @@ A tool to auto-compile & install KCPTUN for SS/SSR on Linux
 ******
 ## <a name="Install"/>安装
 ------
-###<a name="Install_command">安装命令
+### <a name="Install_command">安装命令
 ```Bash
     wget --no-check-certificate -O ./kcptun_for_ss_ssr-install.sh https://raw.githubusercontent.com/sunsan05/one-key-ssr-kcptun/master/kcptun_for_ss_ssr-install.sh
     chmod 700 ./kcptun_for_ss_ssr-install.sh
