@@ -1384,7 +1384,6 @@ pre_install_kcptun_for_ss_ssr(){
         echo "  9: aes-128-ctr"
         echo " 10: aes-192-ctr"
         echo " 11: aes-256-ctr"
-        echo " 12: chacha20-ietf-poly1305"
         read -p "Enter your choice (0, 1, 2, 3, ... or exit. default [${def_ssrr_method}]): " set_ssrr_method
         case "${set_ssrr_method}" in
             0|[Nn][Oo][Nn][Ee])
@@ -1422,9 +1421,6 @@ pre_install_kcptun_for_ss_ssr(){
                 ;;
             11|[Aa][Ee][Ss]-256-[Cc][Tt][Rr])
                 set_ssrr_method="aes-256-ctr"
-                ;;
-            12|[Cc][Hh][Aa][Cc][Hh][Aa]20-[Ii][Ee][Tt][Ff]-[Pp][Oo][Ll][Yy]1305)
-                set_ssrr_method="chacha20-ietf-poly1305"
                 ;;
             [eE][xX][iI][tT])
                 exit 1
